@@ -11,5 +11,5 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-  type-aliases-package: com.shu.domain
+  type-aliases-package: com.shu.cashbook.domain
   mapper-locations: classpath:mapper/*.xml

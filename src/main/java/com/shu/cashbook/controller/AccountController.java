@@ -1,8 +1,13 @@
 package com.shu.cashbook.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.shu.cashbook.domain.User;
+import com.shu.cashbook.mapper.UserMapper;
+import com.shu.cashbook.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: yang
@@ -12,8 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("account")
 public class AccountController {
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping("t")
-    public String test(){
+    public String test() {
+        this.testSelect();
         return "account";
     }
+
+    public void testSelect() {
+        List<User> users=userMapper.selectAll();
+        for (User user : users) {
+            System.out.println(user.getUserName());
+        }
+    }
+
 }
