@@ -1,7 +1,6 @@
 package com.shu.cashbook.security;
 
 import com.shu.cashbook.domain.User;
-import com.shu.cashbook.mapper.UserMapper;
 import com.shu.cashbook.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         // 将user属性赋给myUserDetails
-        MyUserDetails myUserDetails = new MyUserDetails(user.getId(),user.getUserName(), password,user.getUserEmail(),user.getUserIcon(),true, authorities);
-        return myUserDetails;
+        return new MyUserDetails(user.getId(),user.getUserName(), password,user.getUserEmail(),user.getUserIcon(),true, authorities);
     }
 }
