@@ -9,5 +9,7 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 public interface UserService {
-    User findOne(String s);
+    User findByName(String s);
+    User findByEmail(String s);
+    void insert(User user);
 }

@@ -20,9 +20,21 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User findOne(String s) {
+    public User findByEmail(String s) {
+        User user=new User();
+        user.setUserEmail(s);
+        return userMapper.selectOne(user);
+    }
+
+    @Override
+    public User findByName(String s) {
         User user=new User();
         user.setUserName(s);
         return userMapper.selectOne(user);
+    }
+
+    @Override
+    public void insert(User user) {
+        userMapper.insert(user);
     }
 }

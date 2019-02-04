@@ -18,7 +18,7 @@ public class BaseResult {
 
     private String result;
     private Object data;
-    private String success;
+    private String message;
     private Cursor cursor;
     private List<Error> errors;
 
@@ -28,6 +28,10 @@ public class BaseResult {
 
     public static BaseResult ok(String success) {
         return createResult(RESULT_OK, null, success, null, null);
+    }
+
+    public static BaseResult notOK(String message) {
+        return createResult(RESULT_NOT_OK, null, message, null, null);
     }
 
     public static BaseResult ok(Object data) {
@@ -45,16 +49,16 @@ public class BaseResult {
     /**
      * @param result
      * @param data
-     * @param success
+     * @param message
      * @param cursor
      * @param errors
      * @return
      */
-    private static BaseResult createResult(String result, Object data, String success, Cursor cursor, List<Error> errors) {
+    private static BaseResult createResult(String result, Object data, String message, Cursor cursor, List<Error> errors) {
         BaseResult baseResult = new BaseResult();
         baseResult.setResult(result);
         baseResult.setData(data);
-        baseResult.setSuccess(success);
+        baseResult.setMessage(message);
         baseResult.setCursor(cursor);
         baseResult.setErrors(errors);
 
