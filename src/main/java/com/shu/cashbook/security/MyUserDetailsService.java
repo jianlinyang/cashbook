@@ -24,7 +24,6 @@ import java.util.List;
 @Component
 public class MyUserDetailsService implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -38,8 +37,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if(user==null){
             throw new UsernameNotFoundException("用户名"+username+"不存在");
         }
-        String password = passwordEncoder.encode(user.getPassword());
-        logger.info("password: {}", password);
 
         //获取权限
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -48,6 +45,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         // 将user属性赋给myUserDetails
-        return new MyUserDetails(user.getId(),user.getUserName(), password,user.getUserEmail(),user.getUserIcon(),true, authorities);
+        return new MyUserDetails(user.getId(),user.getUserName(), passwordEncoder.encode(user.getPassword()),user.getUserEmail(),user.getUserIcon(),true, authorities);
     }
 }
