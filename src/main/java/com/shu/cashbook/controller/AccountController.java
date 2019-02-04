@@ -26,15 +26,7 @@ public class AccountController {
 
     @GetMapping("t")
     public BaseResult test() {
-        this.testSelect();
-        return BaseResult.ok("测试user权限");
+        List<User> users = userMapper.selectAll();
+        return BaseResult.ok(users);
     }
-
-    public void testSelect() {
-        List<User> users=userMapper.selectAll();
-        for (User user : users) {
-            System.out.println(user.getUserName());
-        }
-    }
-
 }
