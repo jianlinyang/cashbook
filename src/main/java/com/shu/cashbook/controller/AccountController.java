@@ -1,5 +1,6 @@
 package com.shu.cashbook.controller;
 
+import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.domain.User;
 import com.shu.cashbook.mapper.UserMapper;
 import com.shu.cashbook.service.UserService;
@@ -24,9 +25,9 @@ public class AccountController {
     private UserMapper userMapper;
 
     @GetMapping("t")
-    public String test() {
+    public BaseResult test() {
         this.testSelect();
-        return "account";
+        return BaseResult.ok("测试user权限");
     }
 
     public void testSelect() {

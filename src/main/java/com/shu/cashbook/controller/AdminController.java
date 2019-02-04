@@ -1,5 +1,6 @@
 package com.shu.cashbook.controller;
 
+import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.domain.User;
 import com.shu.cashbook.mapper.UserMapper;
 import com.shu.cashbook.service.UserService;
@@ -20,7 +21,7 @@ import java.util.List;
 public class AdminController {
 
     @GetMapping("t")
-    public String test() {
-        return "admin";
+    public BaseResult test() {
+        return BaseResult.ok("测试admin权限");
     }
 }
