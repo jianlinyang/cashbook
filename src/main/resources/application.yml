@@ -13,3 +13,6 @@ spring:
 mybatis:
   type-aliases-package: com.shu.cashbook.domain
   mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 8000
