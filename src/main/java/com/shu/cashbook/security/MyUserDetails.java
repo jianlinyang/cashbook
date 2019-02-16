@@ -33,7 +33,7 @@ public class MyUserDetails implements UserDetails {
         this.username = username;
         this.password = password;
         this.mail = mail;
-        this.userIcon =userIcon;
+        this.userIcon = userIcon;
         this.enabled = enabled;
         this.authorities = authorities;
     }

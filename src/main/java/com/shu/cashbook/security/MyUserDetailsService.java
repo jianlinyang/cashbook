@@ -34,8 +34,8 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("用户的用户名: {}", username);
         User user = userService.findByName(username);
-        if(user==null){
-            throw new UsernameNotFoundException("用户名"+username+"不存在");
+        if (user == null) {
+            throw new UsernameNotFoundException("用户名" + username + "不存在");
         }
 
         //获取权限
@@ -45,6 +45,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         // 将user属性赋给myUserDetails
-        return new MyUserDetails(user.getId(),user.getUserName(), user.getPassword(),user.getUserEmail(),user.getUserIcon(),true, authorities);
+        return new MyUserDetails(user.getId(), user.getUserName(), user.getPassword(), user.getUserEmail(), user.getUserIcon(), true, authorities);
     }
 }

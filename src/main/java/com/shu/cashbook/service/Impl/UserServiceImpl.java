@@ -21,14 +21,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String s) {
-        User user=new User();
+        User user = new User();
         user.setUserEmail(s);
         return userMapper.selectOne(user);
     }
 
     @Override
     public User findByName(String s) {
-        User user=new User();
+        User user = new User();
         user.setUserName(s);
         return userMapper.selectOne(user);
     }

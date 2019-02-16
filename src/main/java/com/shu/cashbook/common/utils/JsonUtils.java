@@ -1,4 +1,4 @@
-package com.shu.cashbook.utils;
+package com.shu.cashbook.common.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
