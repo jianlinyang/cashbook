@@ -1,6 +1,5 @@
 package com.shu.cashbook.security;
 
-import com.shu.cashbook.domain.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
