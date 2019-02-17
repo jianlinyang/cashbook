@@ -9,6 +9,16 @@ spring:
       max-active: 20
       test-on-borrow: true
       driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    sentinel:
+      master: mymaster
+      nodes: 106.14.183.86:26379,106.14.183.86:26380,106.14.183.86:26381
 
 mybatis:
   type-aliases-package: com.shu.cashbook.domain

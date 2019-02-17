@@ -47,14 +47,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login.html").permitAll()     // 设置所有人都可以访问登录页面
                 .antMatchers("/swagger-ui.html").permitAll()     // 设置所有人都可以访问登录页面
                 .antMatchers("/regist").permitAll()     // 设置所有人都可以访问登录页面
-                .antMatchers("/account/**").hasRole("USER") //设置权限页面对应角色
-                .antMatchers("/**").hasRole("ADMIN")
+                //.antMatchers("/account/**").hasRole("USER") //设置权限页面对应角色
+                .antMatchers("/**").hasRole("USER")
 
                 .and()
                 .rememberMe()     //记住我
 
                 .and()
                 .logout().logoutSuccessUrl("/login.html")   //注销
+
+//                .and()
+//                .sessionManagement()
+//                .maximumSessions(3)
 
                 .and()
                 .csrf().disable();         // 关闭csrf防护

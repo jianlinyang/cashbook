@@ -3,7 +3,6 @@ package com.shu.cashbook.controller;
 import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.domain.User;
 import com.shu.cashbook.mapper.UserMapper;
-import com.shu.cashbook.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("account")
 public class AccountController {
-    @Resource
-    private UserService userService;
 
     @Resource
     private UserMapper userMapper;
@@ -30,6 +27,6 @@ public class AccountController {
     @GetMapping("t")
     public BaseResult test() {
         List<User> users = userMapper.selectAll();
-        return BaseResult.ok(users);
+        return BaseResult.success(users);
     }
 }
