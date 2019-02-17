@@ -1,6 +1,5 @@
 package com.shu.cashbook.security;
 
-import com.shu.cashbook.domain.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +32,7 @@ public class MyUserDetails implements UserDetails {
         this.username = username;
         this.password = password;
         this.mail = mail;
-        this.userIcon =userIcon;
+        this.userIcon = userIcon;
         this.enabled = enabled;
         this.authorities = authorities;
     }

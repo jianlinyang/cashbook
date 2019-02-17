@@ -1,29 +1,20 @@
 package com.shu.cashbook.security;
 
-import com.shu.cashbook.domain.User;
-import com.shu.cashbook.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.annotation.Resource;
+
 
 /**
  * @Author: yang
@@ -33,15 +24,14 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Logger logger = LoggerFactory.getLogger(getClass());
-    @Autowired
+    @Resource
     private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
 
-    @Autowired
+    @Resource
     private MyAuthenctiationSuccessHandler myAuthenctiationSuccessHandler;
 
-    @Autowired
+    @Resource
     private UserDetailsService userDetailsService;
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -68,7 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .csrf().disable();         // 关闭csrf防护
-
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

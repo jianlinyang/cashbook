@@ -3,7 +3,6 @@ package com.shu.cashbook.service.Impl;
 import com.shu.cashbook.domain.User;
 import com.shu.cashbook.mapper.UserMapper;
 import com.shu.cashbook.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,20 +15,20 @@ import javax.annotation.Resource;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Override
     public User findByEmail(String s) {
-        User user=new User();
+        User user = new User();
         user.setUserEmail(s);
         return userMapper.selectOne(user);
     }
 
     @Override
     public User findByName(String s) {
-        User user=new User();
-        user.setUserName(s);
+        User user = new User();
+        user.setUsername(s);
         return userMapper.selectOne(user);
     }
 

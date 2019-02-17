@@ -15,7 +15,7 @@ import java.io.IOException;
  * @Author: yang
  * @Date: 2019/2/3 13:29
  * @Version 1.0
- *登录成功处理
+ * 登录成功处理
  */
 @Component
 public class MyAuthenctiationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
