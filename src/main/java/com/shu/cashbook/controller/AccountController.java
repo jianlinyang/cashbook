@@ -9,6 +9,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("account")
 public class AccountController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private AccountItemService accountItemService;
 
@@ -48,6 +51,7 @@ public class AccountController {
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
         accountItem.setCreateTime(new Date());
+        logger.info(new Date().toString());
         accountItemService.insert(accountItem);
         return BaseResult.success("新增记录成功");
     }
