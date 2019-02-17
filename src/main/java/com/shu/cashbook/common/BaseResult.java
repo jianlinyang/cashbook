@@ -1,9 +1,6 @@
 package com.shu.cashbook.common;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @Author: yang
@@ -12,70 +9,39 @@ import java.util.List;
  */
 @Data
 public class BaseResult {
-    public static final String RESULT_OK = "ok";
-    public static final String RESULT_NOT_OK = "not_ok";
-    public static final String SUCCESS = "成功操作";
 
-    private String result;
+    private int result;
     private Object data;
     private String message;
-    private Cursor cursor;
-    private List<Error> errors;
 
-    public static BaseResult ok() {
-        return createResult(RESULT_OK, null, SUCCESS, null, null);
+    public static BaseResult success() {
+        return createResult(200, null, "success");
     }
 
-    public static BaseResult ok(String success) {
-        return createResult(RESULT_OK, null, success, null, null);
+    public static BaseResult success(Object data) {
+        return createResult(200, data, "success");
     }
 
-    public static BaseResult notOK(String message) {
-        return createResult(RESULT_NOT_OK, null, message, null, null);
+    public static BaseResult success(String message) {
+        return createResult(200, null, message);
     }
 
-    public static BaseResult ok(Object data) {
-        return createResult(RESULT_OK, data, SUCCESS, null, null);
-    }
-
-    public static BaseResult ok(Object data, Cursor cursor) {
-        return createResult(RESULT_OK, data, SUCCESS, cursor, null);
-    }
-
-    public static BaseResult notOk(List<BaseResult.Error> errors) {
-        return createResult(RESULT_NOT_OK, null, "", null, errors);
+    public static BaseResult failed(int result, String message) {
+        return createResult(result, null, message);
     }
 
     /**
      * @param result
      * @param data
      * @param message
-     * @param cursor
-     * @param errors
      * @return
      */
-    private static BaseResult createResult(String result, Object data, String message, Cursor cursor, List<Error> errors) {
+    private static BaseResult createResult(int result, Object data, String message) {
         BaseResult baseResult = new BaseResult();
         baseResult.setResult(result);
         baseResult.setData(data);
         baseResult.setMessage(message);
-        baseResult.setCursor(cursor);
-        baseResult.setErrors(errors);
-
         return baseResult;
     }
 
-    @Data
-    public static class Cursor {
-        private int total;
-        private int offset;
-        private int limit;
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class Error {
-        private String field;
-        private String message;
-    }
 }

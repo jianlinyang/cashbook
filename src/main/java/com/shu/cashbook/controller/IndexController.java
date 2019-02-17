@@ -29,7 +29,7 @@ public class IndexController {
                              @RequestParam String password) {
         User byEmail = userService.findByEmail(email);
         if (null != byEmail) {
-            return BaseResult.notOK("用户名已存在");
+            return BaseResult.failed(403,"用户名已存在");
         } else {
             User user = new User();
             user.setId(MainUtils.getUuid());
@@ -38,9 +38,9 @@ public class IndexController {
             user.setUserLevel(level);
             user.setUserIcon(icon);
             user.setPassword(MainUtils.getBCryptStr(password));
-            user.setAuthority("ROLE_ADMIN");
+            user.setAuthority("ROLE_USER");
             userService.insert(user);
-            return BaseResult.ok("注册成功");
+            return BaseResult.success("注册成功");
         }
     }
 }

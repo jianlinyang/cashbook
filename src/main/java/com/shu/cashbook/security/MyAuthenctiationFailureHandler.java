@@ -1,8 +1,9 @@
 package com.shu.cashbook.security;
 
+import com.shu.cashbook.common.BaseResult;
+import com.shu.cashbook.common.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,12 @@ public class MyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailu
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
         logger.info("登录失败");
-
-        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write("failed");
+        BaseResult baseResult= BaseResult.failed(401,"用户名密码错误");
+        try {
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(JsonUtils.obj2json(baseResult));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
