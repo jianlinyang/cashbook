@@ -41,6 +41,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         // 将user属性赋给myUserDetails
-        return new MyUserDetails(user.getId(), user.getUserName(), user.getPassword(), user.getUserEmail(), user.getUserIcon(), true, authorities);
+        return new MyUserDetails(user.getId(), user.getUsername(), user.getPassword(), user.getUserEmail(), user.getUserIcon(), true, authorities);
     }
 }

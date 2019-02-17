@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
+
 
 /**
  * @Author: yang
@@ -22,13 +24,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Logger logger = LoggerFactory.getLogger(getClass());
-    @Autowired
+    @Resource
     private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
 
-    @Autowired
+    @Resource
     private MyAuthenctiationSuccessHandler myAuthenctiationSuccessHandler;
 
-    @Autowired
+    @Resource
     private UserDetailsService userDetailsService;
 
     @Override

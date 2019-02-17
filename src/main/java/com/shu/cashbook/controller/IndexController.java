@@ -34,7 +34,7 @@ public class IndexController {
             User user = new User();
             user.setId(MainUtils.getUuid());
             user.setUserEmail(email);
-            user.setUserName(name);
+            user.setUsername(name);
             user.setUserLevel(level);
             user.setUserIcon(icon);
             user.setPassword(MainUtils.getBCryptStr(password));
