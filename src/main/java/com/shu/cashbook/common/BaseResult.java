@@ -43,5 +43,4 @@ public class BaseResult {
         baseResult.setMessage(message);
         return baseResult;
     }
-
 }
