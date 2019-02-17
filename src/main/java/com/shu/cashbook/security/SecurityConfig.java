@@ -56,6 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutSuccessUrl("/login.html")   //注销
 
+//                .and()
+//                .sessionManagement()
+//                .maximumSessions(3)
+
                 .and()
                 .csrf().disable();         // 关闭csrf防护
     }
