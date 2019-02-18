@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +29,14 @@ public class MyAuthenctiationSuccessHandler extends SimpleUrlAuthenticationSucce
 
     @Resource
     private UserService userService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info(userDetails.getUsername()+"登录成功");
+        logger.info("{} 登录成功", userDetails.getUsername());
 
         User user = userService.findByName(userDetails.getUsername());
-//        String token= UUID.randomUUID().toString();
-//        redisService.put(token,userDetails.getUsername(),60*60*24);
-//        CookieUtils.setCookie(request,response,"token",token,60*60*24);
         user.setPassword(null);
         BaseResult baseResult = BaseResult.success(user);
         baseResult.setMessage("登录成功");

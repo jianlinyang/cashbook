@@ -116,6 +116,7 @@
         <version>2.2.1.RELEASE</version>
         </dependency>
 
+        <!--redis Begin-->
         <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -124,6 +125,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <!--redis End-->
 
         <!-- Swagger2 Begin -->
         <dependency>

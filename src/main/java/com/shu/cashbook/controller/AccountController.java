@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +35,10 @@ public class AccountController {
     @Resource
     private AccountItemService accountItemService;
 
+    /**
+     * 获取当前登录用户
+     * @return
+     */
     private String getUsername() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUsername();
@@ -44,11 +47,9 @@ public class AccountController {
     @PostMapping("insert")
     @ApiOperation("新增记录")
     @Transactional
-    @ApiImplicitParams(
-            {
+    @ApiImplicitParams({
                     @ApiImplicitParam(name = "changeMoney", value = "支出金额"),
-                    @ApiImplicitParam(name = "itemType", value = "消费事件")}
-    )
+                    @ApiImplicitParam(name = "itemType", value = "消费事件")})
     public BaseResult insert(AccountItem accountItem) {
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
@@ -62,11 +63,9 @@ public class AccountController {
     @GetMapping("select/all")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
-    @ApiImplicitParams(
-            {
+    @ApiImplicitParams({
                     @ApiImplicitParam(name = "pageNum", value = "页码数"),
-                    @ApiImplicitParam(name = "pageSize", value = "每页记录数")}
-    )
+                    @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
     public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> page = accountItemService.page(pageNum, pageSize, this.getUsername());
         List<AccountItem> list = page.getList();

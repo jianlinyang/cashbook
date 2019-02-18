@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 
 /**
@@ -33,9 +32,7 @@ public class IndexController {
             @ApiImplicitParam(name = "username", value = "用户名"),
             @ApiImplicitParam(name = "userEmail", value = "邮箱"),
             @ApiImplicitParam(name = "userIcon", value = "头像"),
-            @ApiImplicitParam(name = "password", value = "密码")
-    })
-
+            @ApiImplicitParam(name = "password", value = "密码")})
     @PostMapping("register")
     @Transactional
     public BaseResult regist(User user) {
