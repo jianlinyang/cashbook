@@ -8,6 +8,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,7 @@ import javax.annotation.Resource;
 @Api(tags = "用户注册Controller")
 @RestController
 public class IndexController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private UserService userService;
 
@@ -45,6 +48,7 @@ public class IndexController {
             user.setPassword(MainUtils.getBCryptStr(user.getPassword()));
             user.setAuthority("ROLE_USER");
             userService.insert(user);
+            logger.info(user.getUsername()+"注册成功");
             return BaseResult.success("注册成功");
         }
     }

@@ -43,31 +43,34 @@ public class AccountController {
 
     @PostMapping("insert")
     @ApiOperation("新增记录")
+    @Transactional
     @ApiImplicitParams(
-            {@ApiImplicitParam(name = "changeMoney", value = "支出"),
+            {
+                    @ApiImplicitParam(name = "changeMoney", value = "支出金额"),
                     @ApiImplicitParam(name = "itemType", value = "消费事件")}
     )
     public BaseResult insert(AccountItem accountItem) {
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
         accountItem.setCreateTime(new Date());
-        logger.info(new Date().toString());
         accountItemService.insert(accountItem);
+        logger.info(this.getUsername() + "新增记录成功");
         return BaseResult.success("新增记录成功");
     }
 
-    @GetMapping("select")
+
+    @GetMapping("select/all")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams(
-            {@ApiImplicitParam(name = "pageNum", value = "页码数"),
+            {
+                    @ApiImplicitParam(name = "pageNum", value = "页码数"),
                     @ApiImplicitParam(name = "pageSize", value = "每页记录数")}
     )
-    public BaseResult select(int pageNum, int pageSize) {
+    public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> page = accountItemService.page(pageNum, pageSize, this.getUsername());
-        List<AccountItem> list=page.getList();
+        List<AccountItem> list = page.getList();
 
         return BaseResult.success(page);
     }
-
 }
