@@ -1,5 +1,6 @@
 package com.shu.cashbook.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.common.utils.MainUtils;
 import com.shu.cashbook.domain.AccountItem;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @Author: yang
@@ -68,7 +70,14 @@ public class AccountController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码数"),
             @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
     public BaseResult selectAll(@PathVariable int pageNum, @PathVariable int pageSize) {
-        List<AccountItem> list = accountItemService.page(pageNum, pageSize, this.getUsername());
-        return BaseResult.success(list);
+        PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, this.getUsername());
+        Map<String,Object> map=new LinkedHashMap<>();
+        map.put("totalPage",pageInfo.getPages());   //总页数
+        map.put("total",pageInfo.getTotal());       //总数据数
+        map.put("pageNum",pageInfo.getPageNum());   //当前页数
+        map.put("pageSize",pageInfo.getPageSize()); //每页记录数
+        map.put("dataList",pageInfo.getList());     //当前页数据结果集
+        String message = "totalPage:总页数 ;total:总数据数  ;pageNum:当前页数 ;pageSize:每页记录数 ;dataList:当前页数据结果集";
+        return BaseResult.success(map,message);
     }
 }

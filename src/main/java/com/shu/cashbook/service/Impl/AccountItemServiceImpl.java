@@ -28,16 +28,15 @@ public class AccountItemServiceImpl implements AccountItemService {
      * @return
      */
     @Override
-    public List<AccountItem> page(int pageNum, int pageSize, String s ) {
+    public PageInfo<AccountItem> page(int pageNum, int pageSize, String s ) {
         AccountItem accountItem = new AccountItem();
         accountItem.setCreatorId(s);
         //分页
-        PageHelper.startPage(pageNum, pageSize,"create_time desc");
+        PageHelper.startPage(pageNum, pageSize, "create_time desc");
         List<AccountItem> select = accountItemMapper.select(accountItem);
         //包装分页结果
         PageInfo<AccountItem> pageInfo = new PageInfo<>(select);
-        List<AccountItem> list = pageInfo.getList();
-        return list;
+        return pageInfo;
     }
 
 
