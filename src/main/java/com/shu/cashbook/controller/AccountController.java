@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,7 @@ public class AccountController {
 
     /**
      * 获取当前登录用户
+     *
      * @return
      */
     private String getUsername() {
@@ -44,16 +46,19 @@ public class AccountController {
         return userDetails.getUsername();
     }
 
-    @PostMapping("insert")
+    @PostMapping("addCash")
     @ApiOperation("新增记录")
     @Transactional
     @ApiImplicitParams({
-                    @ApiImplicitParam(name = "changeMoney", value = "支出金额"),
-                    @ApiImplicitParam(name = "itemType", value = "消费事件")})
-    public BaseResult insert(AccountItem accountItem) {
+            @ApiImplicitParam(name = "changeMoney", value = "操作金额"),
+            @ApiImplicitParam(name = "itemType", value = "收支类型"),
+            @ApiImplicitParam(name = "note", value = "备注",required = false)})
+    public BaseResult addCash(AccountItem accountItem) {
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
-        accountItem.setCreateTime(new Date());
+        if (null == accountItem.getCreateTime()) {
+            accountItem.setCreateTime(new Date());
+        }
         accountItemService.insert(accountItem);
         logger.info(this.getUsername() + "新增记录成功");
         return BaseResult.success("新增记录成功");
@@ -64,8 +69,8 @@ public class AccountController {
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
-                    @ApiImplicitParam(name = "pageNum", value = "页码数"),
-                    @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
+            @ApiImplicitParam(name = "pageNum", value = "页码数"),
+            @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
     public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> page = accountItemService.page(pageNum, pageSize, this.getUsername());
         List<AccountItem> list = page.getList();

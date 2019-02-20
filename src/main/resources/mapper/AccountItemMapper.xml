@@ -11,6 +11,7 @@
     <result column="change_money" jdbcType="DOUBLE" property="changeMoney" />
     <result column="item_type" jdbcType="VARCHAR" property="itemType" />
     <result column="creator_id" jdbcType="CHAR" property="creatorId" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="note" jdbcType="LONGVARCHAR" property="note" />
   </resultMap>
 </mapper>
