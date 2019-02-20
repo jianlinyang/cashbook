@@ -33,7 +33,7 @@ public class IndexController {
             @ApiImplicitParam(name = "userEmail", value = "邮箱"),
             @ApiImplicitParam(name = "userIcon", value = "头像"),
             @ApiImplicitParam(name = "password", value = "密码")})
-    @PostMapping("/register")
+    @PostMapping("register")
     @Transactional
     public BaseResult regist(User user) {
         User byEmail = userService.findByEmail(user.getUserEmail());

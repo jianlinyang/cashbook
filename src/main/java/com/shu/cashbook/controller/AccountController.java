@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Api(tags = "记账Controller")
 @RestController
-@RequestMapping("/home/account")
+@RequestMapping("home/account")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
@@ -42,13 +42,13 @@ public class AccountController {
         return userDetails.getUsername();
     }
 
-    @PostMapping("/addCash")
+    @PostMapping("addCash")
     @ApiOperation("新增记录")
     @Transactional
     @ApiImplicitParams({
             @ApiImplicitParam(name = "changeMoney", value = "操作金额"),
             @ApiImplicitParam(name = "itemType", value = "收支类型"),
-            @ApiImplicitParam(name = "note", value = "备注",required = false)})
+            @ApiImplicitParam(name = "note", value = "备注")})
     public BaseResult addCash(AccountItem accountItem) {
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
@@ -61,13 +61,13 @@ public class AccountController {
     }
 
 
-    @GetMapping("/select/all/{pageNum}")
+    @GetMapping("select/{pageNum}/{pageSize}")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码数"),
             @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
-    public BaseResult selectAll(@PathVariable int pageNum, int pageSize) {
+    public BaseResult selectAll(@PathVariable int pageNum, @PathVariable int pageSize) {
         List<AccountItem> list = accountItemService.page(pageNum, pageSize, this.getUsername());
         return BaseResult.success(list);
     }
