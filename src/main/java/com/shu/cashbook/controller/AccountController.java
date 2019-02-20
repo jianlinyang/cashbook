@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Api(tags = "记账Controller")
 @RestController
-@RequestMapping("home/account")
+@RequestMapping("/home/account")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
@@ -42,7 +42,7 @@ public class AccountController {
         return userDetails.getUsername();
     }
 
-    @PostMapping("addCash")
+    @PostMapping("/addCash")
     @ApiOperation("新增记录")
     @Transactional
     @ApiImplicitParams({
@@ -61,7 +61,7 @@ public class AccountController {
     }
 
 
-    @GetMapping("select/all/{pageNum}")
+    @GetMapping("/select/all/{pageNum}")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("t")
+    @GetMapping("/t")
     public BaseResult test() {
         return BaseResult.success("测试admin权限");
     }
