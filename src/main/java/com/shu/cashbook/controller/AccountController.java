@@ -50,6 +50,7 @@ public class AccountController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "changeMoney", value = "操作金额"),
             @ApiImplicitParam(name = "itemType", value = "收支类型"),
+            @ApiImplicitParam(name = "creatTime", value = "时间"),
             @ApiImplicitParam(name = "note", value = "备注")})
     public BaseResult addCash(AccountItem accountItem) {
         accountItem.setId(MainUtils.getUuid());
@@ -63,21 +64,22 @@ public class AccountController {
     }
 
 
-    @GetMapping("select/{pageNum}/{pageSize}")
+    //@GetMapping("select/{pageNum}/{pageSize}")
+    @GetMapping("select")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码数"),
             @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
-    public BaseResult selectAll(@PathVariable int pageNum, @PathVariable int pageSize) {
+    public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, this.getUsername());
-        Map<String,Object> map=new LinkedHashMap<>();
-        map.put("totalPage",pageInfo.getPages());   //总页数
-        map.put("total",pageInfo.getTotal());       //总数据数
-        map.put("pageNum",pageInfo.getPageNum());   //当前页数
-        map.put("pageSize",pageInfo.getPageSize()); //每页记录数
-        map.put("dataList",pageInfo.getList());     //当前页数据结果集
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("totalPage", pageInfo.getPages());   //总页数
+        map.put("total", pageInfo.getTotal());       //总数据数
+        map.put("pageNum", pageInfo.getPageNum());   //当前页数
+        map.put("pageSize", pageInfo.getPageSize()); //每页记录数
+        map.put("dataList", pageInfo.getList());     //当前页数据结果集
         String message = "totalPage:总页数 ;total:总数据数  ;pageNum:当前页数 ;pageSize:每页记录数 ;dataList:当前页数据结果集";
-        return BaseResult.success(map,message);
+        return BaseResult.success(map, message);
     }
 }
