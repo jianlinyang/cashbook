@@ -8,6 +8,7 @@ import com.shu.cashbook.service.AccountItemService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -19,15 +20,24 @@ public class AccountItemServiceImpl implements AccountItemService {
     @Resource
     private AccountItemMapper accountItemMapper;
 
+    /**
+     * 分页查询
+     * @param pageNum
+     * @param pageSize
+     * @param s
+     * @return
+     */
     @Override
-    public PageInfo<AccountItem> page(int pageNum, int pageSize, String s) {
+    public List<AccountItem> page(int pageNum, int pageSize, String s ) {
         AccountItem accountItem = new AccountItem();
         accountItem.setCreatorId(s);
-
-        PageHelper pageHelper = new PageHelper();
-        pageHelper.startPage(pageNum, pageSize);
-        PageInfo<AccountItem> pageInfo = new PageInfo<>(accountItemMapper.select(accountItem));
-        return pageInfo;
+        //分页
+        PageHelper.startPage(pageNum, pageSize,"create_time desc");
+        List<AccountItem> select = accountItemMapper.select(accountItem);
+        //包装分页结果
+        PageInfo<AccountItem> pageInfo = new PageInfo<>(select);
+        List<AccountItem> list = pageInfo.getList();
+        return list;
     }
 
 

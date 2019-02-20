@@ -1,6 +1,5 @@
 package com.shu.cashbook.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.common.utils.MainUtils;
 import com.shu.cashbook.domain.AccountItem;
@@ -14,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -30,7 +26,7 @@ import java.util.List;
  */
 @Api(tags = "记账Controller")
 @RestController
-@RequestMapping("account")
+@RequestMapping("home/account")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
@@ -65,16 +61,14 @@ public class AccountController {
     }
 
 
-    @GetMapping("select/all")
+    @GetMapping("select/all/{pageNum}")
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页码数"),
+            @ApiImplicitParam(name = "pageNum", value = "当前页码数"),
             @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
-    public BaseResult selectAll(int pageNum, int pageSize) {
-        PageInfo<AccountItem> page = accountItemService.page(pageNum, pageSize, this.getUsername());
-        List<AccountItem> list = page.getList();
-
-        return BaseResult.success(page);
+    public BaseResult selectAll(@PathVariable int pageNum, int pageSize) {
+        List<AccountItem> list = accountItemService.page(pageNum, pageSize, this.getUsername());
+        return BaseResult.success(list);
     }
 }
