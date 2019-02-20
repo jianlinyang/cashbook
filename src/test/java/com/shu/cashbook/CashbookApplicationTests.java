@@ -10,6 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -20,6 +23,8 @@ public class CashbookApplicationTests {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    DataSource dataSource;
 
     @Test
     public void testSelect() {
@@ -27,6 +32,13 @@ public class CashbookApplicationTests {
         for (User user : users) {
             System.out.println(user.getUsername());
         }
+    }
+    @Test
+    public void contextLoads() throws SQLException {
+        System.out.println(dataSource.getClass());
+        Connection connection = dataSource.getConnection();
+        System.out.println(connection);
+        connection.close();
     }
 
 }

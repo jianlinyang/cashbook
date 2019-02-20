@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.annotation.Resource;
 
 
@@ -46,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
                 .antMatchers("/login.html").permitAll()     // 设置所有人都可以访问登录页面
                 .antMatchers("/swagger-ui.html").permitAll()     // 设置所有人都可以访问登录页面
-                .antMatchers("/regist").permitAll()     // 设置所有人都可以访问登录页面
+                .antMatchers("/register").permitAll()     // 设置所有人都可以访问登录页面
                 //.antMatchers("/account/**").hasRole("USER") //设置权限页面对应角色
                 .antMatchers("/**").hasRole("USER")
 

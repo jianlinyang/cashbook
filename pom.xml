@@ -75,8 +75,8 @@
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>4.2.1</version>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
         </dependency>
         <!--阿里 FastJson依赖-->
         <dependency>
@@ -116,6 +116,7 @@
         <version>2.2.1.RELEASE</version>
         </dependency>
 
+        <!--redis Begin-->
         <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -124,6 +125,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <!--redis End-->
 
         <!-- Swagger2 Begin -->
         <dependency>

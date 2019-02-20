@@ -22,6 +22,10 @@ public class BaseResult {
         return createResult(200, data, "success");
     }
 
+    public static BaseResult success(Object data, String message) {
+        return createResult(200, data, message);
+    }
+
     public static BaseResult success(String message) {
         return createResult(200, null, message);
     }
@@ -43,5 +47,4 @@ public class BaseResult {
         baseResult.setMessage(message);
         return baseResult;
     }
-
 }

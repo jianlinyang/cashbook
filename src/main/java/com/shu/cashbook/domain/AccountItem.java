@@ -1,7 +1,7 @@
 package com.shu.cashbook.domain;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "account_item")
 public class AccountItem {
@@ -47,6 +47,11 @@ public class AccountItem {
      */
     @Column(name = "create_time")
     private Date createTime;
+
+    /**
+     * 备注
+     */
+    private String note;
 
     /**
      * 获取账目主键
@@ -172,5 +177,23 @@ public class AccountItem {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * 获取备注
+     *
+     * @return note - 备注
+     */
+    public String getNote() {
+        return note;
+    }
+
+    /**
+     * 设置备注
+     *
+     * @param note 备注
+     */
+    public void setNote(String note) {
+        this.note = note;
     }
 }
