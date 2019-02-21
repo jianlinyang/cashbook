@@ -14,7 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -48,11 +51,14 @@ public class AccountController {
     @ApiOperation("新增记录")
     @Transactional
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "changeMoney", value = "操作金额"),
+            @ApiImplicitParam(name = "changeMoney", value = "操作金额", paramType = "double"),
             @ApiImplicitParam(name = "itemType", value = "收支类型"),
-            @ApiImplicitParam(name = "creatTime", value = "时间"),
+            @ApiImplicitParam(name = "creatTime", value = "时间", paramType = "Date"),
             @ApiImplicitParam(name = "note", value = "备注")})
     public BaseResult addCash(AccountItem accountItem) {
+        if (accountItem.getChangeMoney() == null) {
+            return BaseResult.failed(403, "金额不能为空,请输入金额");
+        }
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(this.getUsername());
         if (null == accountItem.getCreateTime()) {
@@ -69,8 +75,8 @@ public class AccountController {
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前页码数"),
-            @ApiImplicitParam(name = "pageSize", value = "每页记录数")})
+            @ApiImplicitParam(name = "pageNum", value = "当前页码数", paramType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页记录数", paramType = "int")})
     public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, this.getUsername());
         Map<String, Object> map = new LinkedHashMap<>();

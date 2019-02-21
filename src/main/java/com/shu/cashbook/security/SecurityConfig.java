@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin()                    //  定义当需要用户登录时候，转到的登录页面。
-                .loginPage("/login.html")           // 设置登录页面
+               // .loginPage("/login")           // 设置登录页面
                 .loginProcessingUrl("/login")  // 自定义的登录接口
                 .successHandler(myAuthenctiationSuccessHandler) // 自定义登录成功处理
                 .failureHandler(myAuthenctiationFailureHandler)// 自定义登录失败处理
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()     //记住我
 
                 .and()
-                .logout().logoutSuccessUrl("/login.html")   //注销
+                .logout().logoutSuccessUrl("/login")   //注销
 
 //                .and()
 //                .sessionManagement()

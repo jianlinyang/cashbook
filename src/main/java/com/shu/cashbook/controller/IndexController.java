@@ -8,11 +8,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 
 /**
@@ -36,17 +38,27 @@ public class IndexController {
     @PostMapping("register")
     @Transactional
     public BaseResult regist(User user) {
-        User byEmail = userService.findByEmail(user.getUserEmail());
-        if (null != byEmail) {
-            return BaseResult.failed(403, "用户名已存在");
+        if (StringUtils.isBlank(user.getUsername()) ||
+                StringUtils.isBlank(user.getUserEmail())) {
+            return BaseResult.failed(403, "用户名不能为空");
         } else {
-            user.setId(MainUtils.getUuid());
-            user.setUserLevel("0");
-            user.setPassword(MainUtils.getBCryptStr(user.getPassword()));
-            user.setAuthority("ROLE_USER");
-            userService.insert(user);
-            logger.info(user.getUsername()+"注册成功");
-            return BaseResult.success("注册成功");
+            User byEmail = userService.findByEmail(user.getUserEmail());
+            User byName = userService.findByName(user.getUsername());
+            if (null != byEmail || null != byName) {
+                return BaseResult.failed(403, "用户名已存在");
+            } else {
+                if (StringUtils.isBlank(user.getPassword())) {
+                    return BaseResult.failed(403, "密码不能为空");
+                } else {
+                    user.setId(MainUtils.getUuid());
+                    user.setUserLevel("0");
+                    user.setPassword(MainUtils.getBCryptStr(user.getPassword()));
+                    user.setAuthority("ROLE_USER");
+                    userService.insert(user);
+                    logger.info(user.getUsername() + "注册成功");
+                    return BaseResult.success("注册成功");
+                }
+            }
         }
     }
 }
