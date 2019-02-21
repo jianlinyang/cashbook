@@ -16,9 +16,12 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 0
-    sentinel:
-      master: mymaster
-      nodes: 106.14.183.86:26379,106.14.183.86:26380,106.14.183.86:26381
+    host: 106.14.183.86
+    port: 6379
+    password: 123456
+#    sentinel:
+#      master: mymaster
+#      nodes: 106.14.183.86:26379,106.14.183.86:26380,106.14.183.86:26381
 
 mybatis:
   type-aliases-package: com.shu.cashbook.domain
@@ -26,3 +29,5 @@ mybatis:
 
 server:
   port: 8000
+
+#debug: true

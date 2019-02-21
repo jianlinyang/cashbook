@@ -51,9 +51,9 @@ public class AccountController {
     @ApiOperation("新增记录")
     @Transactional
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "changeMoney", value = "操作金额", paramType = "double"),
+            @ApiImplicitParam(name = "changeMoney", value = "操作金额", dataType = "double"),
             @ApiImplicitParam(name = "itemType", value = "收支类型"),
-            @ApiImplicitParam(name = "creatTime", value = "时间", paramType = "Date"),
+            @ApiImplicitParam(name = "creatTime", value = "时间", dataType = "date"),
             @ApiImplicitParam(name = "note", value = "备注")})
     public BaseResult addCash(AccountItem accountItem) {
         if (accountItem.getChangeMoney() == null) {
@@ -65,7 +65,7 @@ public class AccountController {
             accountItem.setCreateTime(new Date());
         }
         accountItemService.insert(accountItem);
-        logger.info(this.getUsername() + "新增记录成功");
+        logger.info("{}新增记录成功", this.getUsername());
         return BaseResult.success("新增记录成功");
     }
 
@@ -75,8 +75,8 @@ public class AccountController {
     @Transactional(readOnly = true)
     @ApiOperation("分页查询全部记录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前页码数", paramType = "int"),
-            @ApiImplicitParam(name = "pageSize", value = "每页记录数", paramType = "int")})
+            @ApiImplicitParam(name = "pageNum", value = "当前页码数", dataType = "int"),
+            @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "int")})
     public BaseResult selectAll(int pageNum, int pageSize) {
         PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, this.getUsername());
         Map<String, Object> map = new LinkedHashMap<>();
@@ -86,6 +86,7 @@ public class AccountController {
         map.put("pageSize", pageInfo.getPageSize()); //每页记录数
         map.put("dataList", pageInfo.getList());     //当前页数据结果集
         String message = "totalPage:总页数 ;total:总数据数  ;pageNum:当前页数 ;pageSize:每页记录数 ;dataList:当前页数据结果集";
+        logger.info("{}查询成功", this.getUsername());
         return BaseResult.success(map, message);
     }
 }

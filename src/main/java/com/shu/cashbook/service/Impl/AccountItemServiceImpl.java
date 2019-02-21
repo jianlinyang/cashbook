@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.shu.cashbook.domain.AccountItem;
 import com.shu.cashbook.mapper.AccountItemMapper;
 import com.shu.cashbook.service.AccountItemService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class AccountItemServiceImpl implements AccountItemService {
      * @return
      */
     @Override
+    @Cacheable(value = "OneDay",keyGenerator = "simpleKeyGenerator")
     public PageInfo<AccountItem> page(int pageNum, int pageSize, String s ) {
         AccountItem accountItem = new AccountItem();
         accountItem.setCreatorId(s);

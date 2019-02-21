@@ -55,7 +55,7 @@ public class IndexController {
                     user.setPassword(MainUtils.getBCryptStr(user.getPassword()));
                     user.setAuthority("ROLE_USER");
                     userService.insert(user);
-                    logger.info(user.getUsername() + "注册成功");
+                    logger.info("{}注册成功", user.getUsername());
                     return BaseResult.success("注册成功");
                 }
             }

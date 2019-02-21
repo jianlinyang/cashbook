@@ -1,10 +1,11 @@
 package com.shu.cashbook.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "account_item")
-public class AccountItem {
+public class AccountItem implements Serializable {
     /**
      * 账目主键
      */

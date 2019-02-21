@@ -1,8 +1,9 @@
 package com.shu.cashbook.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     /**
      * 用户id
      */

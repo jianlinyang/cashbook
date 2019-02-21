@@ -5,6 +5,7 @@ import com.shu.cashbook.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,8 @@ public class CashbookApplicationTests {
     private UserMapper userMapper;
     @Resource
     DataSource dataSource;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Test
     public void testSelect() {
@@ -39,6 +42,10 @@ public class CashbookApplicationTests {
         Connection connection = dataSource.getConnection();
         System.out.println(connection);
         connection.close();
+    }
+    @Test
+    public void test03(){
+        stringRedisTemplate.opsForValue().append("msg","hello");
     }
 
 }
