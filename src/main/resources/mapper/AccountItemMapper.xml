@@ -14,4 +14,32 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="note" jdbcType="LONGVARCHAR" property="note" />
   </resultMap>
+
+  <!--<sql id="tbContentColumns">-->
+        <!--a.id,-->
+        <!--a.title,-->
+        <!--a.sub_title AS subTitle,-->
+        <!--a.title_desc AS titleDesc,-->
+        <!--a.url,-->
+        <!--a.pic,-->
+        <!--a.pic2,-->
+        <!--a.content,-->
+        <!--a.created,-->
+        <!--a.updated,-->
+        <!--b.id AS "tbContentCategory.id",-->
+        <!--b.name AS "tbContentCategory.name"-->
+    <!--</sql>-->
+
+  <!--<sql id="tbContentJoins">-->
+        <!--LEFT JOIN tb_content_category AS b ON a.category_id = b.id-->
+    <!--</sql>-->
+
+  <!--<select id="selectByCategoryId" resultType="TbContent">-->
+    <!--SELECT-->
+    <!--<include refid="tbContentColumns" />-->
+    <!--FROM tb_content AS a-->
+    <!--<include refid="tbContentJoins" />-->
+    <!--WHERE a.category_id = #{tbContentCategory.id}-->
+  <!--</select>-->
+
 </mapper>
