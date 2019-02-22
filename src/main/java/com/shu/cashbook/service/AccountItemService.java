@@ -11,6 +11,7 @@ import com.shu.cashbook.domain.AccountItem;
 public interface AccountItemService {
     PageInfo<AccountItem> page(int pageNum, int pageSize, String s);
     void insert(AccountItem accountItem);
-    void update(AccountItem old,AccountItem now);
+    void update(AccountItem now);
     void delete(AccountItem accountItem);
+    AccountItem selectOne(String id);
 }

@@ -2,10 +2,10 @@ package com.shu.cashbook.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.shu.cashbook.common.SecurityUser;
 import com.shu.cashbook.domain.AccountItem;
 import com.shu.cashbook.mapper.AccountItemMapper;
 import com.shu.cashbook.service.AccountItemService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,26 +21,32 @@ public class AccountItemServiceImpl implements AccountItemService {
     @Resource
     private AccountItemMapper accountItemMapper;
 
+    @Resource
+    private SecurityUser securityUser;
+
     /**
      * 分页查询
+     *
      * @param pageNum
      * @param pageSize
      * @param s
      * @return
      */
     @Override
-    @Cacheable(value = "OneDay",keyGenerator = "simpleKeyGenerator")
-    public PageInfo<AccountItem> page(int pageNum, int pageSize, String s ) {
+    public PageInfo<AccountItem> page(int pageNum, int pageSize, String s) {
         AccountItem accountItem = new AccountItem();
         accountItem.setCreatorId(s);
         //分页
         PageHelper.startPage(pageNum, pageSize, "create_time desc");
         List<AccountItem> select = accountItemMapper.select(accountItem);
-        //包装分页结果
-        PageInfo<AccountItem> pageInfo = new PageInfo<>(select);
-        return pageInfo;
+
+        return new PageInfo<>(select);
     }
 
+    @Override
+    public AccountItem selectOne(String id) {
+        return accountItemMapper.selectByPrimaryKey(id);
+    }
 
     @Override
     public void insert(AccountItem accountItem) {
@@ -48,8 +54,8 @@ public class AccountItemServiceImpl implements AccountItemService {
     }
 
     @Override
-    public void update(AccountItem old, AccountItem now) {
-        accountItemMapper.updateByExampleSelective(old, now);
+    public void update(AccountItem accountItem) {
+        accountItemMapper.updateByPrimaryKey(accountItem);
     }
 
     @Override

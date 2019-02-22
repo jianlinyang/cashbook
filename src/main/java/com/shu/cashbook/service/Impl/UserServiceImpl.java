@@ -3,6 +3,7 @@ package com.shu.cashbook.service.Impl;
 import com.shu.cashbook.domain.User;
 import com.shu.cashbook.mapper.UserMapper;
 import com.shu.cashbook.service.UserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "month",keyGenerator = "simpleKeyGenerator")
     public User findByName(String s) {
         User user = new User();
         user.setUsername(s);

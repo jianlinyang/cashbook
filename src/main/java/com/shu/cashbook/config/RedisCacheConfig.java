@@ -23,6 +23,10 @@ import java.util.Map;
  * @author: yang
  * @date: 2019/2/21 19:44
  */
+
+/**
+ * 自定义缓存过期时间
+ */
 @Configuration
 public class RedisCacheConfig {
 
@@ -54,9 +58,9 @@ public class RedisCacheConfig {
 
     private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put("Hour", this.getRedisCacheConfigurationWithTtl(3600));
-        redisCacheConfigurationMap.put("OneDay", this.getRedisCacheConfigurationWithTtl(24*3600));
-
+        redisCacheConfigurationMap.put("hour", this.getRedisCacheConfigurationWithTtl(3600));
+        redisCacheConfigurationMap.put("oneDay", this.getRedisCacheConfigurationWithTtl(24*3600));
+        redisCacheConfigurationMap.put("month", this.getRedisCacheConfigurationWithTtl(24*3600*30));
         return redisCacheConfigurationMap;
     }
 
