@@ -2,7 +2,6 @@ package com.shu.cashbook.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.shu.cashbook.common.SecurityUser;
 import com.shu.cashbook.domain.AccountItem;
 import com.shu.cashbook.mapper.AccountItemMapper;
 import com.shu.cashbook.service.AccountItemService;
@@ -21,8 +20,6 @@ public class AccountItemServiceImpl implements AccountItemService {
     @Resource
     private AccountItemMapper accountItemMapper;
 
-    @Resource
-    private SecurityUser securityUser;
 
     /**
      * 分页查询

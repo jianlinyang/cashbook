@@ -2,11 +2,11 @@ package com.shu.cashbook.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.shu.cashbook.common.BaseResult;
-import com.shu.cashbook.common.SecurityUser;
 import com.shu.cashbook.common.utils.JsonUtils;
 import com.shu.cashbook.common.utils.MainUtils;
 import com.shu.cashbook.domain.AccountItem;
 import com.shu.cashbook.service.AccountItemService;
+import com.shu.cashbook.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: yang
@@ -33,7 +36,7 @@ public class AccountController {
     @Resource
     private AccountItemService accountItemService;
     @Resource
-    private SecurityUser securityUser;
+    private UserService userService;
 
     @PostMapping("account")
     @ApiOperation("新增记录")
@@ -48,12 +51,12 @@ public class AccountController {
             return BaseResult.failed(403, "金额不能为空,请输入金额");
         }
         accountItem.setId(MainUtils.getUuid());
-        accountItem.setCreatorId(securityUser.getUsername());
+        accountItem.setCreatorId(userService.getUsername());
         if (null == accountItem.getCreateTime()) {
             accountItem.setCreateTime(new Date());
         }
         accountItemService.insert(accountItem);
-        logger.info("{}新增记录成功", securityUser.getUsername());
+        logger.info("{}新增记录成功", userService.getUsername());
         return BaseResult.success("新增记录成功");
     }
 
@@ -66,7 +69,7 @@ public class AccountController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码数", dataType = "int"),
             @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "int")})
     public BaseResult selectAll(int pageNum, int pageSize) {
-        PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, securityUser.getUsername());
+        PageInfo<AccountItem> pageInfo = accountItemService.page(pageNum, pageSize, userService.getUsername());
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("totalPage", pageInfo.getPages());   //总页数
         map.put("total", pageInfo.getTotal());       //总数据数
@@ -74,7 +77,7 @@ public class AccountController {
         map.put("pageSize", pageInfo.getPageSize()); //每页记录数
         map.put("dataList", pageInfo.getList());     //当前页数据结果集
         String message = "totalPage:总页数 ;total:总数据数  ;pageNum:当前页数 ;pageSize:每页记录数 ;dataList:当前页数据结果集";
-        logger.info("{}查询成功", securityUser.getUsername());
+        logger.info("{}查询成功", userService.getUsername());
         return BaseResult.success(map, message);
     }
 
@@ -94,9 +97,9 @@ public class AccountController {
             if (accountItem.getCreateTime() == null) {
                 accountItem.setCreateTime(new Date());
             }
-            accountItem.setCreatorId(securityUser.getUsername());
+            accountItem.setCreatorId(userService.getUsername());
             accountItemService.update(accountItem);
-            logger.info("{}更新记录{}成功", securityUser.getUsername(),accountItem.getId());
+            logger.info("{}更新记录{}成功", userService.getUsername(),accountItem.getId());
             return BaseResult.success("数据更新成功");
         }
     }
@@ -116,7 +119,7 @@ public class AccountController {
                 accountItem.setId(s);
                 accountItemService.delete(accountItem);
             }
-            logger.info("{}删除记录{}成功", securityUser.getUsername(),ids);
+            logger.info("{}删除记录{}成功", userService.getUsername(),ids);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,7 +1,6 @@
 package com.shu.cashbook.service;
 
 import com.shu.cashbook.domain.User;
-import org.springframework.stereotype.Service;
 
 /**
  * @Author: yang
@@ -12,4 +11,8 @@ public interface UserService {
     User findByName(String s);
     User findByEmail(String s);
     void insert(User user);
+    User getUser();
+    String getUserIcon();
+    String getUsername();
+    void update(User user);
 }
