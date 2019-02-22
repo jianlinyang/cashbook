@@ -2,13 +2,13 @@ package com.shu.cashbook.domain;
 
 import javax.persistence.*;
 
-public class User {
+public class User extends BaseDomain{
     /**
      * 用户id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private String id;
 
     /**
      * 用户邮箱
@@ -48,18 +48,18 @@ public class User {
      *
      * @return id - 用户id
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置用户id
-     *
-     * @param id 用户id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    /**
+//     * 设置用户id
+//     *
+//     * @param id 用户id
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     /**
      * 获取用户邮箱

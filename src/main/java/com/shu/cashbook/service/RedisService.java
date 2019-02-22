@@ -7,6 +7,5 @@ package com.shu.cashbook.service;
  */
 public interface RedisService {
     void put(String key, Object value, long seconds);
-
     void get(String key);
 }

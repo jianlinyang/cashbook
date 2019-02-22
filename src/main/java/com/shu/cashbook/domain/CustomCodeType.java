@@ -3,13 +3,13 @@ package com.shu.cashbook.domain;
 import javax.persistence.*;
 
 @Table(name = "custom_code_type")
-public class CustomCodeType {
+public class CustomCodeType extends BaseDomain {
     /**
      * 用户自定义分类code_id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private String id;
 
     /**
      * code表id（用户自定义添加的分类ID关联）
@@ -34,18 +34,18 @@ public class CustomCodeType {
      *
      * @return id - 用户自定义分类code_id
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置用户自定义分类code_id
-     *
-     * @param id 用户自定义分类code_id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    /**
+//     * 设置用户自定义分类code_id
+//     *
+//     * @param id 用户自定义分类code_id
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     /**
      * 获取code表id（用户自定义添加的分类ID关联）

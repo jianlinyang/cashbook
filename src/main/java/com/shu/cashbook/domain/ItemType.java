@@ -2,20 +2,20 @@ package com.shu.cashbook.domain;
 
 import javax.persistence.*;
 
-@Table(name = "code_type")
-public class CodeType {
+@Table(name = "item_type")
+public class ItemType extends BaseDomain {
     /**
-     * 字典item_id
+     * item_id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+//    @Id
+///    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private String id;
 
     /**
      * 字典主表Id
      */
-    @Column(name = "p_id")
-    private String pId;
+    @Column(name = "user_id")
+    private String userId;
 
     /**
      * 类型名称
@@ -30,39 +30,44 @@ public class CodeType {
     private String itemIcon;
 
     /**
-     * 获取字典item_id
-     *
-     * @return id - 字典item_id
+     * 是否删除(可见)
      */
-    public String getId() {
-        return id;
-    }
+    private Boolean viewable;
 
     /**
-     * 设置字典item_id
+     * 获取item_id
      *
-     * @param id 字典item_id
+     * @return id - item_id
      */
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    /**
+//     * 设置item_id
+//     *
+//     * @param id item_id
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     /**
      * 获取字典主表Id
      *
-     * @return p_id - 字典主表Id
+     * @return user_id - 字典主表Id
      */
-    public String getpId() {
-        return pId;
+    public String getUserId() {
+        return userId;
     }
 
     /**
      * 设置字典主表Id
      *
-     * @param pId 字典主表Id
+     * @param userId 字典主表Id
      */
-    public void setpId(String pId) {
-        this.pId = pId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     /**
@@ -99,5 +104,23 @@ public class CodeType {
      */
     public void setItemIcon(String itemIcon) {
         this.itemIcon = itemIcon;
+    }
+
+    /**
+     * 获取是否删除(可见)
+     *
+     * @return viewable - 是否删除(可见)
+     */
+    public Boolean getViewable() {
+        return viewable;
+    }
+
+    /**
+     * 设置是否删除(可见)
+     *
+     * @param viewable 是否删除(可见)
+     */
+    public void setViewable(Boolean viewable) {
+        this.viewable = viewable;
     }
 }

@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "account_item")
-public class AccountItem {
-    /**
-     * 账目主键
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+public class AccountItem extends BaseDomain{
+//    /**
+//     * 账目主键
+//     */
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+///   private String id;
 
     /**
      * 账本主键
@@ -58,18 +58,18 @@ public class AccountItem {
      *
      * @return id - 账目主键
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置账目主键
-     *
-     * @param id 账目主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    /**
+//     * 设置账目主键
+//     *
+//     * @param id 账目主键
+//     */
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     /**
      * 获取账本主键

@@ -1,16 +1,9 @@
 package com.shu.cashbook.domain;
 
+import javax.persistence.Column;
 import java.util.Date;
-import javax.persistence.*;
 
-public class Account {
-    /**
-     * 账本主键
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-
+public class Account extends BaseDomain {
     /**
      * 账本名称
      */
@@ -35,23 +28,6 @@ public class Account {
     @Column(name = "create_time")
     private Date createTime;
 
-    /**
-     * 获取账本主键
-     *
-     * @return id - 账本主键
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置账本主键
-     *
-     * @param id 账本主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * 获取账本名称
