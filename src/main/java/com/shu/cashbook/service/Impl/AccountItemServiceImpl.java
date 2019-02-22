@@ -7,7 +7,6 @@ import com.shu.cashbook.mapper.AccountItemMapper;
 import com.shu.cashbook.service.AccountItemService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,11 +15,7 @@ import java.util.List;
  * @date: 2019/2/17 21:16
  */
 @Service
-public class AccountItemServiceImpl implements AccountItemService {
-    @Resource
-    private AccountItemMapper accountItemMapper;
-
-
+public class AccountItemServiceImpl extends BaseServiceImpl<AccountItem, AccountItemMapper> implements AccountItemService {
     /**
      * 分页查询
      *
@@ -35,28 +30,9 @@ public class AccountItemServiceImpl implements AccountItemService {
         accountItem.setCreatorId(s);
         //分页
         PageHelper.startPage(pageNum, pageSize, "create_time desc");
-        List<AccountItem> select = accountItemMapper.select(accountItem);
-
+        List<AccountItem> select = this.select(accountItem);
         return new PageInfo<>(select);
     }
 
-    @Override
-    public AccountItem selectOne(String id) {
-        return accountItemMapper.selectByPrimaryKey(id);
-    }
 
-    @Override
-    public void insert(AccountItem accountItem) {
-        accountItemMapper.insert(accountItem);
-    }
-
-    @Override
-    public void update(AccountItem accountItem) {
-        accountItemMapper.updateByPrimaryKey(accountItem);
-    }
-
-    @Override
-    public void delete(AccountItem accountItem) {
-        accountItemMapper.delete(accountItem);
-    }
 }

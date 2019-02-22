@@ -18,49 +18,42 @@ import javax.annotation.Resource;
  * @Version 1.0
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User, UserMapper> implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    //根据security容器中用户名获取User对象
     @Override
     public User getUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return this.findByName(userDetails.getUsername());
     }
 
-    public String getUserIcon(){
-        return this.getUser().getUserIcon();
-    }
-
-    @Override
-    @CacheEvict(value = "month",key = "#user.username")
-    public void update(User user) {
-        userMapper.updateByPrimaryKey(user);
-    }
-
+    //获取security容器中用户名
     @Override
     public String getUsername() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUsername();
     }
 
+    //此方法能添加缓存
     @Override
-    public User findByEmail(String s) {
-        User user = new User();
-        user.setUserEmail(s);
-        return userMapper.selectOne(user);
-    }
-
-    @Override
-    @Cacheable(value = "month",key = "#s")
+    @Cacheable(value = "month", key = "#s")
     public User findByName(String s) {
         User user = new User();
         user.setUsername(s);
         return userMapper.selectOne(user);
     }
 
+    //以下方法为了更新缓存,覆盖抽象层方法
     @Override
-    @CacheEvict(value = "month",key = "#user.username")
+    @CacheEvict(value = "month", key = "#user.username")
+    public void update(User user) {
+        userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    @CacheEvict(value = "month", key = "#user.username")
     public void insert(User user) {
         userMapper.insert(user);
     }

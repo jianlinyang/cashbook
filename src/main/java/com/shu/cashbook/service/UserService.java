@@ -7,12 +7,11 @@ import com.shu.cashbook.domain.User;
  * @Date: 2019/2/1 22:23
  * @Version 1.0
  */
-public interface UserService {
+public interface UserService extends BaseService<User> {
+    //此方法能添加缓存
     User findByName(String s);
-    User findByEmail(String s);
-    void insert(User user);
+
     User getUser();
-    String getUserIcon();
+
     String getUsername();
-    void update(User user);
 }

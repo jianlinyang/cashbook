@@ -5,7 +5,9 @@ import com.shu.cashbook.common.BaseResult;
 import com.shu.cashbook.common.utils.JsonUtils;
 import com.shu.cashbook.common.utils.MainUtils;
 import com.shu.cashbook.domain.AccountItem;
+import com.shu.cashbook.domain.ItemType;
 import com.shu.cashbook.service.AccountItemService;
+import com.shu.cashbook.service.ItemTypeService;
 import com.shu.cashbook.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,6 +39,8 @@ public class AccountController {
     private AccountItemService accountItemService;
     @Resource
     private UserService userService;
+    @Resource
+    private ItemTypeService itemTypeService;
 
     @PostMapping("account")
     @ApiOperation("新增记录")
@@ -50,6 +54,7 @@ public class AccountController {
         if (accountItem.getChangeMoney() == null) {
             return BaseResult.failed(403, "金额不能为空,请输入金额");
         }
+        ItemType itemType =new ItemType();
         accountItem.setId(MainUtils.getUuid());
         accountItem.setCreatorId(userService.getUsername());
         if (null == accountItem.getCreateTime()) {
@@ -91,7 +96,8 @@ public class AccountController {
             @ApiImplicitParam(name = "createTime", value = "时间", dataType = "date"),
             @ApiImplicitParam(name = "note", value = "备注")})
     public BaseResult update(AccountItem accountItem) {
-        if (accountItemService.selectOne(accountItem.getId()) == null || null == accountItem.getChangeMoney()) {
+
+        if (accountItemService.selectByPrimaryKey(accountItem) == null || null == accountItem.getChangeMoney()) {
             return BaseResult.failed(403, "请输入更改数据");
         } else {
             if (accountItem.getCreateTime() == null) {

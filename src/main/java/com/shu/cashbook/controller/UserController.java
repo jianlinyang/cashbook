@@ -42,18 +42,21 @@ public class UserController {
             @ApiImplicitParam(name = "userIcon", value = "头像"),
             @ApiImplicitParam(name = "password", value = "密码")})
     @Transactional
-    public BaseResult regist(User user) {
+    public BaseResult register(User user) {
         if (StringUtils.isBlank(user.getUsername()) ||
                 StringUtils.isBlank(user.getUserEmail())) {
             return BaseResult.failed(403, "用户名不能为空");
         } else {
-            User byEmail = userService.findByEmail(user.getUserEmail());
-            User byName = userService.findByName(user.getUsername());
-            if (null != byEmail || null != byName) {
-                return BaseResult.failed(403, "用户名已存在");
+            if (StringUtils.isBlank(user.getPassword())) {
+                return BaseResult.failed(403, "密码不能为空");
             } else {
-                if (StringUtils.isBlank(user.getPassword())) {
-                    return BaseResult.failed(403, "密码不能为空");
+                User temp = new User();
+                temp.setUserEmail(user.getUserEmail());
+                User byEmail = userService.selectOne(temp);
+                temp.setUsername(user.getUsername());
+                User byName = userService.selectOne(temp);
+                if (null != byEmail || null != byName) {
+                    return BaseResult.failed(403, "用户名已存在");
                 } else {
                     user.setId(MainUtils.getUuid());
                     user.setUserLevel("0");
@@ -98,11 +101,11 @@ public class UserController {
     }
 
     @GetMapping("icon")
-    @ApiOperation("用户获取头像方法")
+    @ApiOperation("用户获取头像Url方法")
     @ApiImplicitParam(name = "multipartFile", value = "头像图片文件")
     @Transactional(readOnly = true)
     public BaseResult getIcon() {
-        String path = ProjectPath.getFile().getPath() + File.separatorChar + userService.getUserIcon();
+        String path = ProjectPath.getFile().getPath() + File.separatorChar + userService.getUser().getUserIcon();
         logger.info("用户头像Url:{}", path);
         return BaseResult.success(path, "获取用户头像Url");
     }
