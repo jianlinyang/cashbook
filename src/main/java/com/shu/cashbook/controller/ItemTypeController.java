@@ -7,6 +7,7 @@ import com.shu.cashbook.service.ItemTypeService;
 import com.shu.cashbook.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -76,7 +77,10 @@ public class ItemTypeController {
 
     @PutMapping("itemType")
     @ApiOperation("修改支出类型选项")
-    @ApiImplicitParam(name = "itemName", value = "支出类型名称")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "itemName", value = "支出类型名称"),
+            @ApiImplicitParam(name = "id", value = "ID")
+    })
     public BaseResult updateItemType(ItemType itemType) {
         if (StringUtils.isBlank(itemType.getItemName())) {
             return BaseResult.failed(403, "请输入支出类型名称");
@@ -101,6 +105,7 @@ public class ItemTypeController {
         }
         itemType.setViewable(false);
         logger.info("删除支出类型{}成功", itemType.getItemName());
+        itemTypeService.update(itemType);
         return BaseResult.success("删除支出类型{}成功", itemType.getItemName());
     }
 }
