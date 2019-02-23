@@ -1,5 +1,7 @@
 package com.shu.cashbook.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -46,6 +48,7 @@ public class AccountItem extends BaseDomain{
      * 创建时间
      */
     @Column(name = "create_time")
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
