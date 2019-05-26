@@ -13,7 +13,7 @@ public class AccountItem extends BaseDomain{
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 ///   private String id;
-
+//
     /**
      * 账本主键
      */
